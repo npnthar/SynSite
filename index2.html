@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Документация</title>
+  <style>
+    :root {
+      --primary: #7c4dff;
+      --primary-light: #b47cff;
+      --primary-dark: #3f1dcb;
+      --background: #121212;
+      --surface: #1e1e1e;
+      --surface-variant: #2c2c2c;
+      --text: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.7);
+      --border-radius: 12px;
+      --spacing-sm: 12px;
+      --spacing-md: 20px;
+      --spacing-lg: 32px;
+      --transition: all 0.2s ease-in-out;
+    }
+
+    body {
+      background-color: var(--background);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      padding: var(--spacing-lg);
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    h3 {
+      text-align: center;
+      margin: 1.5em 0 1em;
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--primary-light);
+    }
+
+    h4 {
+      font-weight: 600;
+      margin: 1.5em 0 0.8em;
+      font-size: 22px;
+      color: var(--text);
+    }
+
+    h5 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-top: 0;
+      color: var(--primary-light);
+    }
+
+    .button {
+      background-color: var(--primary);
+      color: var(--text);
+      padding: 12px 24px;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 15px;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .button:hover {
+      background-color: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(124, 77, 255, 0.3);
+    }
+
+    .button-block {
+      background-color: var(--primary-dark);
+      color: var(--text);
+      padding: 12px 20px;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 15px;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: var(--spacing-sm);
+      width: auto;
+    }
+
+    .button-block:hover {
+      background-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .section {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .details, .question-block {
+      background-color: var(--surface);
+      color: var(--text);
+      padding: var(--spacing-md);
+      border-radius: var(--border-radius);
+      margin-bottom: var(--spacing-md);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .details:hover {
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      border-color: rgba(124, 77, 255, 0.2);
+    }
+
+    .summary {
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 17px;
+      outline: none;
+    }
+
+    .summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .summary::before {
+      content: "+";
+      display: inline-block;
+      margin-right: 10px;
+      color: var(--primary-light);
+      transition: var(--transition);
+    }
+
+    details[open] .summary::before {
+      content: "−";
+    }
+
+    .answer-button {
+      background-color: var(--surface-variant);
+      color: var(--text);
+      padding: var(--spacing-md);
+      border-radius: var(--border-radius);
+      margin-top: var(--spacing-sm);
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      font-size: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: var(--transition);
+    }
+
+    .answer-button:hover {
+      background-color: var(--primary-dark);
+      border-color: var(--primary);
+    }
+
+    #issues {
+      display: grid;
+      gap: var(--spacing-md);
+    }
+
+    .issue {
+      background-color: var(--surface);
+      padding: var(--spacing-md);
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .issue:hover {
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      border-color: rgba(124, 77, 255, 0.2);
+    }
+
+    .issue h5 {
+      margin: 0 0 8px 0;
+    }
+
+    .issue p {
+      margin: 0 0 var(--spacing-md) 0;
+      color: var(--text-secondary);
+    }
+
+    .diagnostic-area {
+      margin-top: var(--spacing-md);
+      display: none;
+    }
+
+    .result-block {
+      background-color: var(--surface-variant);
+      color: var(--text);
+      padding: var(--spacing-md);
+      border-radius: var(--border-radius);
+      margin-top: var(--spacing-md);
+      display: none;
+      border-left: 4px solid var(--primary);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    a {
+      color: var(--primary-light);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: var(--primary);
+    }
+
+    #maintenance-tasks, #information-block {
+      display: grid;
+      gap: var(--spacing-sm);
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: var(--spacing-md);
+      }
+      
+      .issue {
+        padding: var(--spacing-sm);
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="section">
+    <h3>ИЭТР для плагина синтора с машинным обучением</h3>
+
+    <div>
+      <h4>Регламентные работы</h4>
+      <div id="maintenance-tasks"></div>
+    </div>
+
+    <div>
+      <h4>Возможные неисправности</h4>
+      <div id="issues">
+        <div class="issue" id="issue-incorrectSound">
+          <h5>Неверное сопоставление звуков</h5>
+          <p>Синтезатор неправильно интерпретирует входные данные, что приводит к некорректному воспроизведению звуков.</p>
+          <button class="button-block" onclick="selectIssue('incorrectSound')">Диагностика</button>
+          <div id="diagnostic-incorrectSound" class="diagnostic-area">
+            <div class="question-block">
+              <h4 id="question-incorrectSound"></h4>
+              <div id="answers-incorrectSound"></div>
+            </div>
+            <div id="result-incorrectSound" class="result-block">
+              <h4>Результат диагностики</h4>
+              <p id="diagnosis-result-incorrectSound"></p>
+            </div>
+          </div>
+        </div>
+        <div class="issue" id="issue-delaySound">
+          <h5>Задержка в воспроизведении звука</h5>
+          <p>Задержка возникает из-за неправильных настроек буфера или высокой нагрузки на систему.</p>
+          <button class="button-block" onclick="selectIssue('delaySound')">Диагностика</button>
+          <div id="diagnostic-delaySound" class="diagnostic-area">
+            <div class="question-block">
+              <h4 id="question-delaySound"></h4>
+              <div id="answers-delaySound"></div>
+            </div>
+            <div id="result-delaySound" class="result-block">
+              <h4>Результат диагностики</h4>
+              <p id="diagnosis-result-delaySound"></p>
+            </div>
+          </div>
+        </div>
+        <div class="issue" id="issue-softwareFailure">
+          <h5>Сбой в работе</h5>
+          <p>Программа неожиданно завершает работу или выдает ошибки из-за несоответствия требованиям или сбоев.</p>
+          <button class="button-block" onclick="selectIssue('softwareFailure')">Диагностика</button>
+          <div id="diagnostic-softwareFailure" class="diagnostic-area">
+            <div class="question-block">
+              <h4 id="question-softwareFailure"></h4>
+              <div id="answers-softwareFailure"></div>
+            </div>
+            <div id="result-softwareFailure" class="result-block">
+              <h4>Результат диагностики</h4>
+              <p id="diagnosis-result-softwareFailure"></p>
+            </div>
+          </div>
+        </div>
+        <div class="issue" id="issue-micConnection">
+          <h5>Синтезатор не распознаёт звук</h5>
+          <p>Проблема связана с подключением микрофона или недостаточной громкостью входного сигнала.</p>
+          <button class="button-block" onclick="selectIssue('micConnection')">Диагностика</button>
+          <div id="diagnostic-micConnection" class="diagnostic-area">
+            <div class="question-block">
+              <h4 id="question-micConnection"></h4>
+              <div id="answers-micConnection"></div>
+            </div>
+            <div id="result-micConnection" class="result-block">
+              <h4>Результат диагностики</h4>
+              <p id="diagnosis-result-micConnection"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h4>Справочная информация</h4>
+      <div id="information-block"></div>
+    </div>
+  </section>
+
+  <script>
+    const maintenanceTasks = [
+      { title: "Проверка параметров ПО", description: "Пользователь выставляет необходимые параметры в ПО перед каждым использованием. Периодичность: при каждом запуске." },
+      { title: "Проверка на обновление ПО", description: "Зайти на сайт ПО, проверить наличие обновлений и установить их, если они доступны. Периодичность: 1 раз в неделю." },
+      { title: "Проверка на обновление модели", description: "Запустить в ПО проверку наличия обновленной модели и установить ее при необходимости. Периодичность: 2 раза в месяц." },
+      { title: "Мониторинг результатов", description: "Сбор данных о работе ПО, анализ результатов и обращение в техподдержку при неполадках. Периодичность: 1 раз в месяц." }
+    ];
+
+    const information = [
+      { title: "Общие рекомендации по использованию", description: "Убедитесь, что параметры настроены перед запуском. Используйте пресеты для быстрой настройки. Регулярно проверяйте обновления." },
+      { title: "Оптимизация производительности", description: "Уменьшите размер буфера в настройках, закройте фоновые приложения, используйте ASIO-драйверы для звуковой карты." },
+      { title: "Дополнительные ресурсы", description: "Официальная документация: <a href='https://example.com/docs'>ссылка</a>. Форумы: <a href='https://example.com/forum'>форум</a>." },
+      { title: "Аппаратные требования", description: ["ОС: Windows 10 / macOS 11+", "Процессор: Intel Core i5 / AMD Ryzen 5", "ОЗУ: 8 ГБ (рекомендуется 16 ГБ)", "Жёсткий диск: 2 ГБ свободного места", "Звуковая карта: ASIO-совместимая или встроенная"] },
+      { title: "Совместимость с ОС и ПО", description: "Поддерживаемые ОС: Windows 10+, macOS 11+. DAW: Ableton Live, FL Studio, Logic Pro." },
+      { title: "Настройка MIDI-контроллеров", description: "Подключите контроллер через USB, откройте настройки ПО, выберите устройство и протестируйте ввод." },
+      { title: "Использование пресетов", description: "Загружайте пресеты через меню 'Пресеты', сохраняйте свои настройки кнопкой 'Сохранить как'." }
+    ];
+
+    const questions = {
+      incorrectSound: [
+        { id: "q1", question: "Параметры корректны?", answers: [
+            { text: "Нет", result: "Настроить параметры и завершить диагностику." },
+            { text: "Да", next: "q2" }
+        ]},
+        { id: "q2", question: "Модель обновлена?", answers: [
+            { text: "Нет", result: "Обновить модель и завершить диагностику." },
+            { text: "Да", next: "q3" }
+        ]},
+        { id: "q3", question: "Перезапустите ПО. Помогло?", answers: [
+            { text: "Да", result: "Диагностика завершена." },
+            { text: "Нет", result: "Обратитесь в техподдержку: support@example.com" }
+        ]}
+      ],
+      delaySound: [
+        { id: "q1", question: "Настройки буфера оптимальны?", answers: [
+            { text: "Нет", result: "Уменьшить размер буфера и завершить диагностику." },
+            { text: "Да", next: "q2" }
+        ]},
+        { id: "q2", question: "Система работает нормально?", answers: [
+            { text: "Нет", result: "Перезагрузить систему и завершить диагностику." },
+            { text: "Да", next: "q3" }
+        ]},
+        { id: "q3", question: "Перезапустите ПО. Помогло?", answers: [
+            { text: "Да", result: "Диагностика завершена." },
+            { text: "Нет", result: "Обратитесь в техподдержку: support@example.com" }
+        ]}
+      ],
+      softwareFailure: [
+        { id: "q1", question: "Системные требования соблюдены?", answers: [
+            { text: "Нет", result: "Обновить оборудование и завершить диагностику." },
+            { text: "Да", next: "q2" }
+        ]},
+        { id: "q2", question: "Сбои продолжаются после перезапуска ПО?", answers: [
+            { text: "Нет", result: "Диагностика завершена." },
+            { text: "Да", next: "q3" }
+        ]},
+        { id: "q3", question: "Переустановите ПО. Помогло?", answers: [
+            { text: "Да", result: "Диагностика завершена." },
+            { text: "Нет", result: "Обратитесь в техподдержку: support@example.com" }
+        ]}
+      ],
+      micConnection: [
+        { id: "q1", question: "Подключение исправно?", answers: [
+            { text: "Нет", result: "Исправить подключение и завершить диагностику." },
+            { text: "Да", next: "q2" }
+        ]},
+        { id: "q2", question: "Уровень громкости достаточен?", answers: [
+            { text: "Нет", result: "Увеличить громкость и завершить диагностику." },
+            { text: "Да", next: "q3" }
+        ]},
+        { id: "q3", question: "Переустановите ПО. Помогло?", answers: [
+            { text: "Да", result: "Диагностика завершена." },
+            { text: "Нет", result: "Обратитесь в техподдержку: support@example.com" }
+        ]}
+      ]
+    };
+
+    let activeIssue = null;
+
+    function closeAllDiagnosticAreas() {
+      document.querySelectorAll('.diagnostic-area').forEach(area => {
+        area.style.display = 'none';
+      });
+    }
+
+    function resetDiagnosticArea(issueId) {
+      // Сбросить результаты и показать первый вопрос
+      document.getElementById(`result-${issueId}`).style.display = 'none';
+      document.getElementById(`question-${issueId}`).parentElement.style.display = 'block';
+      
+      // Показать первый вопрос для данной неисправности
+      const firstQuestion = questions[issueId][0];
+      updateQuestionForIssue(issueId, firstQuestion);
+    }
+
+    function handleAnswer(issueId, answer) {
+      if (answer.result) {
+        document.getElementById(`question-${issueId}`).parentElement.style.display = 'none';
+        document.getElementById(`result-${issueId}`).style.display = 'block';
+        document.getElementById(`diagnosis-result-${issueId}`).textContent = answer.result;
+      } else {
+        const nextStep = questions[issueId]?.find(q => q.id === answer.next);
+        if (nextStep) {
+          updateQuestionForIssue(issueId, nextStep);
+        }
+      }
+    }
+
+    function updateQuestionForIssue(issueId, question) {
+      document.getElementById(`question-${issueId}`).textContent = question.question;
+      const answersDiv = document.getElementById(`answers-${issueId}`);
+      answersDiv.innerHTML = '';
+      question.answers.forEach(answer => {
+        const button = document.createElement('button');
+        button.classList.add('answer-button');
+        button.textContent = answer.text;
+        button.onclick = () => handleAnswer(issueId, answer);
+        answersDiv.appendChild(button);
+      });
+    }
+
+    function selectIssue(issueId) {
+      if (activeIssue === issueId) {
+        // Если уже открыт, просто закрываем
+        document.getElementById(`diagnostic-${issueId}`).style.display = 'none';
+        activeIssue = null;
+        return;
+      }
+      
+      // Закрыть все открытые области диагностики
+      closeAllDiagnosticAreas();
+      
+      // Показать область диагностики для выбранной неисправности
+      const diagnosticArea = document.getElementById(`diagnostic-${issueId}`);
+      diagnosticArea.style.display = 'block';
+      
+      // Сбросить диалог к начальному состоянию
+      resetDiagnosticArea(issueId);
+      
+      activeIssue = issueId;
+    }
+
+    function renderInformation() {
+      const informationBlock = document.getElementById('information-block');
+      information.forEach(info => {
+        const details = document.createElement('details');
+        details.classList.add('details');
+        const summary = document.createElement('summary');
+        summary.classList.add('summary');
+        summary.textContent = info.title;
+        details.appendChild(summary);
+        if (Array.isArray(info.description)) {
+          const div = document.createElement('div');
+          info.description.forEach(item => {
+            const p = document.createElement('p');
+            p.innerHTML = item; // Для поддержки ссылок
+            div.appendChild(p);
+          });
+          details.appendChild(div);
+        } else {
+          const description = document.createElement('p');
+          description.innerHTML = info.description; // Для поддержки ссылок
+          details.appendChild(description);
+        }
+        informationBlock.appendChild(details);
+      });
+    }
+
+    function render() {
+      const maintenanceTasksDiv = document.getElementById('maintenance-tasks');
+      maintenanceTasks.forEach(task => {
+        const details = document.createElement('details');
+        details.classList.add('details');
+        const summary = document.createElement('summary');
+        summary.classList.add('summary');
+        summary.textContent = task.title;
+        details.appendChild(summary);
+        const description = document.createElement('p');
+        description.textContent = task.description;
+        details.appendChild(description);
+        maintenanceTasksDiv.appendChild(details);
+      });
+    }
+
+    render();
+    renderInformation();
+  </script>
+</body>
+</html>
